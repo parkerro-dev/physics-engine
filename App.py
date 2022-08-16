@@ -1,9 +1,9 @@
 from numpy import empty
 import pygame
 from pygame.locals import *
-from Engine import Engine
-from TextMaker import TextMaker
-from CollisionEngine import CollisionEngine
+from data.engine.Engine import Engine
+
+from data.engine.CollisionEngine import CollisionEngine
  
 class App:
     def __init__(self):
@@ -21,12 +21,10 @@ class App:
         self._running = True
         self.globalSurface = self._display_surf
         self.Engine = Engine(self.globalSurface, self.width, self.height, self.BlockSize)
-        self.CollisionEngine = CollisionEngine
-        pygame.font.init()
-        if pygame.font.get_init():
-            self.TextMaker = TextMaker()
+        
  
     def on_event(self, event):
+        self.Engine.EngineEvent(event)
         if event.type == pygame.KEYDOWN:
             self.globalSurface.fill((0, 0, 0))
             if event.key == pygame.K_LEFT:
@@ -39,17 +37,12 @@ class App:
         if event.type == pygame.QUIT:
             self._running = False
     def on_loop(self):
-        self.Engine.Grid()
-        self.mousePos = pygame.mouse.get_pos()
-        self.mouseCoords = self.Engine.GetCoord(self.mousePos[0], self.mousePos[1])
-        print(self.mouseCoords)
-        self.mouseCoordsString = ''.join(str(self.mouseCoords))
+        self.Engine.EngineLoop()
+        
 
 
     def on_render(self):
-        self.TextMaker.makeText(self.globalSurface, "My Physics Engine v0.0.1", 0, 0)
-        self.TextMaker.makeText(self.globalSurface, self.mouseCoordsString, self.width-75, self.height-10)
-        
+        self.Engine.EngineRender()
         pygame.display.flip()
     def on_cleanup(self):
         pygame.quit()

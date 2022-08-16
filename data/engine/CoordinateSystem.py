@@ -1,14 +1,12 @@
-
-import numpy
 import pygame
 
-class Engine():
+class CoordSys():
     def __init__(self, surface, width, height, blockSize):
         self.surface = surface
         self.width = width
         self.height = height
         self.blockSize = blockSize
-    
+
     def Grid(self):
         self.origin = (self.width//2, self.height//2)
         self.originX = self.width//2
@@ -39,3 +37,5 @@ class Engine():
         posX = self.originX + relPosX
         posY = relPosY + self.originY
         return((posX, posY))
+
+    
