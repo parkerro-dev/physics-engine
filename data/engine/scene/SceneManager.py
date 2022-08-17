@@ -17,6 +17,7 @@ class SceneManager():
         self.menuActive = False
         self.menuSurface = pygame.Surface((80, 100))
         self.mousePos = None
+        self.menuUiObject = None
 
     
     def addSceneBody(self, body, active = True):
@@ -38,17 +39,21 @@ class SceneManager():
     def engineRMBMenu(self):
         self.console.Log("We are making u a nice lil menu", self)
         self.mousePos = pygame.mouse.get_pos()
-        self.UIManager.makeNewUIObject("engineMenu", self.menuSurface, ((self.mousePos), (self.mousePos[0]+80, self.mousePos[1]+100)), 2,)
+        self.menuUiObject = self.UIManager.makeNewUIObject("engineMenu", self.menuSurface, ((self.mousePos), (self.mousePos[0]+80, self.mousePos[1]+100)), 2,)
 
         self.menuActive = True
-        
+    
+    def engineRMBMenuClose(self):
+        self.menuActive = False
+        self.UIManager.removeUiObject(self.menuUiObject)
+        self.menuUiObject = None
 
     def SceneLoop(self):
         self.hierarchyUI()
         for bodies in self.SceneBodies:
             bodies.body.makeBody()
             id = bodies.body.getID()
-            self.textManager.makeText(self.engineSurface, "- Body {id}".format(id = id), 10, 5+(12*(id)))
+            self.textManager.makeText(self.hierarchySurface, "- Body {id}".format(id = id), 10, 5+(12*(id)))
 
         if self.menuActive:
             self.engineSurface.blit(self.menuSurface, self.mousePos)

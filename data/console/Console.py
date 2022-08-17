@@ -20,7 +20,6 @@ class Console():
             startPoint = 0
         counter = 0
         for logs in self.consoleLog[:startPoint:-1]:
-            print(logs)
             counter += 1
             consoleText = "> {message} from {location}".format(message = logs[0], location = logs[1])
             if logs[1] == "":
@@ -36,4 +35,4 @@ class Console():
         self.textManager.makeText(self.surface, "Console Log:", 10, 10)
 
         # Logging Console (showing last 10 console logs)
-        self.PrintConsole(8)
+        self.PrintConsole(7)

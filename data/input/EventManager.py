@@ -13,8 +13,8 @@ class EventManager():
     def OnEvent(self, event, type):
         if type == pygame.KEYDOWN:
             if event.key == pygame.K_c:
-                startPos = self.coordSys.GetPos(0, 0)
-                endPos = (20,50)
+                startPos = (0, 0)
+                endPos = (15,5)
 
                 print(startPos, endPos)
                 self.console.Log("Rigid Surface made at {startPos}, {endPos}".format(startPos=startPos, endPos=endPos), self.name)
