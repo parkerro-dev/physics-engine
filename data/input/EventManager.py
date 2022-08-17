@@ -1,7 +1,10 @@
+
 import pygame
 
 class EventManager():
-    def __init__(self, coordSys, BodyManager, surface):
+    def __init__(self, console, coordSys, BodyManager, surface):
+        self.name = "Event Manager"
+        self.console = console
         self.eventCounter = 0
         self.coordSys = coordSys
         self.BodyManager = BodyManager
@@ -14,4 +17,5 @@ class EventManager():
                 endPos = (20,50)
 
                 print(startPos, endPos)
+                self.console.Log("Rigid Surface made at {startPos}, {endPos}".format(startPos=startPos, endPos=endPos), self.name)
                 self.BodyManager.makeRigidSurface(self.surface, startPos, endPos)

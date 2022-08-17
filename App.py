@@ -1,18 +1,20 @@
-from numpy import empty
 import pygame
 from pygame.locals import *
 from data.engine.Engine import Engine
 
-from data.engine.CollisionEngine import CollisionEngine
+from data.engine.collision.CollisionEngine import CollisionEngine
  
 class App:
     def __init__(self):
         self._running = True
         self.title = "engine"
         self._display_surf = None
-        self.width, self.height = 1080, 600
+        self.width, self.height = 1080, 650
         self.size = self.width, self.height
         self.BlockSize = 20
+        self.engineWidth = 820
+        self.engineHeight = 520
+        self.engineSurfaceSize = self.engineWidth, self.engineHeight
         
  
     def on_init(self):
@@ -20,7 +22,18 @@ class App:
         self._display_surf = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
         self._running = True
         self.globalSurface = self._display_surf
-        self.Engine = Engine(self.globalSurface, self.width, self.height, self.BlockSize)
+        
+        self.engineSurface = pygame.Surface(self.engineSurfaceSize, )
+        self.HierarchySurface = pygame.Surface((self.width-self.engineWidth, self.engineHeight))
+        self.consoleSurface = pygame.Surface((self.width, self.height-self.engineHeight))
+
+        self.Engine = Engine(self.globalSurface, 
+                            self.engineSurface, 
+                            self.HierarchySurface, 
+                            self.consoleSurface, 
+                            self.engineWidth, 
+                            self.engineHeight, 
+                            self.BlockSize)
         
  
     def on_event(self, event):
