@@ -34,17 +34,18 @@ class Engine():
         self.TextEngine = TextEngine(self.coordSys, self.engineSurface, self.width, self.height)
         
         self.SceneManager = SceneManager(self.hierarchySurface, self.console, self.engineSurface)
-        self.BodyManager = BodyManager(self.SceneManager, self.blockSize,  self.coordSys)
+        self.BodyManager = BodyManager(self.engineSurface, self.SceneManager, self.blockSize,  self.coordSys)
         self.EventManager = EventManager(self.console, self.coordSys, self.BodyManager, self.engineSurface)
         
         self.UIManager = UiManager(self.console, self.SceneManager, self.BodyManager)
 
         self.UIManager.makeNewUIObject("EngineSurface" , self.engineSurface, ((0, 0), (self.engineSurface.get_width(), self.engineSurface.get_height())), 1, False)
-        self.UIManager.makeNewUIObject("HierarchySurface", self.hierarchySurface, ((self.engineSurface.get_width(), 0), (self.globalSurface.get_width(), 1, self.engineSurface.get_height())), False)
-        self.UIManager.makeNewUIObject("ConsoleSurface" ,self.consoleSurface, ((0, self.engineSurface.get_height()), (self.globalSurface.get_width(), 1, self.globalSurface.get_height())), False)
+        self.UIManager.makeNewUIObject("HierarchySurface", self.hierarchySurface, ((self.engineSurface.get_width(), 0), (self.globalSurface.get_width(), self.engineSurface.get_height())), 1, False)
+        self.UIManager.makeNewUIObject("ConsoleSurface" ,self.consoleSurface, ((0, self.engineSurface.get_height()), (self.globalSurface.get_width(), self.globalSurface.get_height())), 1, False)
         print(self.UIManager.UiObjects)
 
         self.SceneManager.UIManager = self.UIManager
+        self.BodyManager.UIManager = self.UIManager
 
 
     def EngineEvent(self, event):

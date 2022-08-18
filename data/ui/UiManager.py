@@ -32,8 +32,10 @@ class UiManager():
             
             if event.button == 1:
                 if self.SceneManager.menuActive:
-                    if self.SceneManager.menuUiObject not in self.hoverOverObjects:
-                        self.SceneManager.engineRMBMenuClose()   
+                    for uiObjects in self.hoverOverObjects:
+                        if uiObjects.name == "makeSurfaceOption":
+                            self.bodyManager.makeRigidSurface((0, 0), (5, 1))
+                            self.SceneManager.engineRMBMenuClose()  
             
     
     def OnLoop(self):
@@ -44,12 +46,15 @@ class UiManager():
                 uiObject.isMouseHover()
                 if uiObject.isMouseHovering == True:
                     self.hoverOverObjects.append(uiObject)
-                    print(self.hoverOverObjects)
+                    for uiObject in self.hoverOverObjects:
+                        print(uiObject.name)
+                    
             
             uiObject.isMouseHover()
             if uiObject in self.hoverOverObjects and uiObject.isMouseHovering == False:
                 self.hoverOverObjects.remove(uiObject)
-                print(self.hoverOverObjects)
+                
 
-        
+        for uiObjects in self.hoverOverObjects:
+            print(uiObjects.name)
                 

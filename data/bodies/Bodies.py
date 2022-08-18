@@ -19,6 +19,10 @@ class RigidSurface():
 
         rectValues = (self.coordSys.GetPos(self.startCoord[0], self.startCoord[1]), (rectWidth, rectHeight))
         return rectValues
+
+    def locationValues(self):
+        location = (self.coordSys.GetPos(self.startCoord[0], self.startCoord[1]), self.coordSys.GetPos(self.endCoord[0], self.endCoord[1]))
+        return location
     
     def makeBody(self):
         pygame.draw.rect(self.surface, (255, 255, 255), self.rectInput())

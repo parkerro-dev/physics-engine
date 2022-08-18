@@ -8,9 +8,12 @@ class UiObject():
         self.layer = layer
         self.selectable = selectable
         self.isMouseHovering = False
+        print("name: {name}, loccation: {x}, {y}, {xx}, {yy}".format(name = self.name, x= self.location[0][0], y = self.location[0][1], xx = self.location[1][0], yy = self.location[1][1]))
 
     def isMouseHover(self):
-        mousePos = pygame.mouse.get_pos() 
+        mousePos = pygame.mouse.get_pos()
+        mouseX = mousePos[0]
+        mouseY = mousePos[1] 
         if mousePos[1]> self.location[0][1] and mousePos[1] < self.location[1][1]:
             if mousePos[0] > self.location[0][0] and mousePos[0] < self.location[1][0]:
                 self.isMouseHovering = True
