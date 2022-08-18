@@ -84,5 +84,3 @@ class Engine():
         self.TextEngine.TextRender()
 
         self.SceneManager.SceneLoop()
-
-

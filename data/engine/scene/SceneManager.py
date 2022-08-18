@@ -1,4 +1,5 @@
 
+from re import L
 import pygame
 import numpy
 
@@ -39,8 +40,9 @@ class SceneManager():
     def engineRMBMenu(self):
         self.console.Log("We are making u a nice lil menu", self)
         self.mousePos = pygame.mouse.get_pos()
-        self.menuUiObject = self.UIManager.makeNewUIObject("engineMenu", self.menuSurface, ((self.mousePos), (self.mousePos[0]+80, self.mousePos[1]+100)), 2,)
-
+        self.menuUiObject = self.UIManager.makeNewUIObject("engineMenu", self.menuSurface, ((self.mousePos[0]+10, self.mousePos[1]+10), (self.mousePos[0]+90, self.mousePos[1]+110)), 2,)
+        self.UIManager.hoverOverObjects.append(self.menuUiObject) 
+        print(self.UIManager.hoverOverObjects)
         self.menuActive = True
     
     def engineRMBMenuClose(self):
@@ -58,3 +60,9 @@ class SceneManager():
         if self.menuActive:
             self.engineSurface.blit(self.menuSurface, self.mousePos)
             self.menuSurface.fill((255, 0, 0))
+            if self.menuUiObject not in self.UIManager.hoverOverObjects:
+                 self.engineRMBMenuClose()
+
+
+        
+           
