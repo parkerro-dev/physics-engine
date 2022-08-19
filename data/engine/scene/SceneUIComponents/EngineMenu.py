@@ -4,9 +4,9 @@ from data.ui.UiManager import UiManager
 from ....ui.uiMakers.TextMaker import TextMaker
 
 class EngineMenu():
-    def __init__(self, engineSurface: pygame.Surface, console):
+    def __init__(self, engineSurface: pygame.Surface, console, UIManager):
         self.engineSurface = engineSurface
-        self.UIManager = None
+        self.UIManager = UIManager
         self.console = console
         self.textMaker = TextMaker()
         self.menuActive = False

@@ -1,18 +1,27 @@
 import pygame
 
 from data.engine.scene.SceneUIComponents.EngineMenu import EngineMenu
+from data.engine.scene.SceneUIComponents.PlayButton import Button
 
 class SceneUi():
-    def __init__(self, engineSurface, console):
+    def __init__(self, engineSurface, UIManager ,console):
         self.engineSurface = engineSurface
         self.console = console
-        self.UIManager = None
-        self.EngineMenu = EngineMenu(self.engineSurface, self.console)
+        self.UIManager = UIManager
+        
+        self.On_Init()
         
    
     def On_Init(self):
-        self.EngineMenu.UIManager = self.UIManager
+        self.EngineMenu = EngineMenu(self.engineSurface, self.console, self.UIManager)
+        self.PlayButton = Button("play", (5, 5), self.engineSurface, ((25, self.engineSurface.get_height()-25), (60, self.engineSurface.get_height()-5)), self.UIManager, self)
+        
+    def OnClick(self, objectClick):
+        if objectClick == self.PlayButton:
+            self.console.Log("you pressed play", self)
+
    
     def SceneUILoop(self):
         self.EngineMenu.menuLoop()
+        self.PlayButton.buttonLoop()
 

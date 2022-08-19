@@ -18,13 +18,12 @@ class SceneManager():
         self.textManager = TextMaker()
         self.UIManager = None
 
-        self.SceneUI = SceneUi(self.engineSurface, self.console)
+        
         
         
         
     def On_Init(self):
-        self.SceneUI.UIManager = self.UIManager
-        self.SceneUI.On_Init()
+        self.SceneUI = SceneUi(self.engineSurface, self.UIManager, self.console)
 
     
     def addSceneBody(self, body, active = True):
