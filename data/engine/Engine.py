@@ -47,6 +47,12 @@ class Engine():
         self.SceneManager.UIManager = self.UIManager
         self.BodyManager.UIManager = self.UIManager
 
+        self.On_Init()
+
+
+    def On_Init(self):
+        #this is used to set the object in different classes
+        self.SceneManager.On_Init()
 
     def EngineEvent(self, event):
         self.EventManager.OnEvent(event, event.type)

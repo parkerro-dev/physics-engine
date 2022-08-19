@@ -23,6 +23,10 @@ class App:
         self._running = True
         self.globalSurface = self._display_surf
         
+        icon = pygame.image.load('images/logo.png')
+        pygame.display.set_icon(icon)
+        pygame.display.set_caption("Physics Engine")
+
         self.engineSurface = pygame.Surface(self.engineSurfaceSize, )
         self.HierarchySurface = pygame.Surface((self.width-self.engineWidth, self.engineHeight))
         self.consoleSurface = pygame.Surface((self.width, self.height-self.engineHeight))

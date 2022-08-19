@@ -17,7 +17,8 @@ class UiManager():
         return newUiObject
 
     def removeUiObject(self, UiObject):
-        self.UiObjects.remove(UiObject)
+        if UiObject in self.UiObjects:
+            self.UiObjects.remove(UiObject)
 
     def onEvent(self, event):
         
@@ -28,14 +29,14 @@ class UiManager():
             if event.button == 3: # right mouse button
                 for uiObject in self.hoverOverObjects:
                     if uiObject.name == "EngineSurface":
-                        self.SceneManager.engineRMBMenu()
+                        self.SceneManager.SceneUI.EngineMenu.createMenu()
             
             if event.button == 1:
-                if self.SceneManager.menuActive:
+                if self.SceneManager.SceneUI.EngineMenu.menuActive:
                     for uiObjects in self.hoverOverObjects:
                         if uiObjects.name == "makeSurfaceOption":
                             self.bodyManager.makeRigidSurface((0, 0), (5, 1))
-                            self.SceneManager.engineRMBMenuClose()  
+                            self.SceneManager.SceneUI.EngineMenu.closeMenu() 
             
     
     def OnLoop(self):
