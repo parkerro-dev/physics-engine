@@ -31,9 +31,11 @@ class EngineMenu():
         self.menuActive = True
 
         self.UIManager.makeNewUIObject("makeSurfaceOption", self.menuUiObject, ((self.mousePos), (self.mousePos[0] + self.menuSurface.get_width(), self.mousePos[1]+20)), 3)
+        self.UIManager.makeNewUIObject("makeParticleOption", self.menuUiObject, ((self.mousePos[0], self.mousePos[1]+20), (self.mousePos[0] + self.menuSurface.get_width(), self.mousePos[1]+40)), 3)
 
     def createMenuOptions(self):
             self.makeSurfaceOption = self.textMaker.makeText(self.menuSurface, "Make Surface", 1, 1)
+            self.makeParticleOption = self.textMaker.makeText(self.menuSurface, "Make Particle", 1, 21)
     
     def closeMenu(self):
         self.menuActive = False

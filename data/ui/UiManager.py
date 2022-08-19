@@ -32,11 +32,17 @@ class UiManager():
                         self.SceneManager.SceneUI.EngineMenu.createMenu()
             
             if event.button == 1:
-                if self.SceneManager.SceneUI.EngineMenu.menuActive:
-                    for uiObjects in self.hoverOverObjects:
+                for uiObjects in self.hoverOverObjects:
+                    if self.SceneManager.SceneUI.EngineMenu.menuActive:
                         if uiObjects.name == "makeSurfaceOption":
                             self.bodyManager.makeRigidSurface((0, 0), (5, 1))
-                            self.SceneManager.SceneUI.EngineMenu.closeMenu() 
+                            self.SceneManager.SceneUI.EngineMenu.closeMenu()
+                        if uiObjects.name == "makeParticleOption":
+                            self.bodyManager.makeParticle((pygame.mouse.get_pos()))
+                            self.SceneManager.SceneUI.EngineMenu.closeMenu()
+
+                    elif uiObjects.name == "playButton":
+                        uiObjects.onMouseClick() 
             
     
     def OnLoop(self):
@@ -48,7 +54,8 @@ class UiManager():
                 if uiObject.isMouseHovering == True:
                     self.hoverOverObjects.append(uiObject)
                     for uiObject in self.hoverOverObjects:
-                        print(uiObject.name)
+                        pass
+                        #print(uiObject.name)
                     
             
             uiObject.isMouseHover()
@@ -57,5 +64,6 @@ class UiManager():
                 
 
         for uiObjects in self.hoverOverObjects:
-            print(uiObjects.name)
+            pass
+            #print(uiObjects.name)
                 

@@ -25,5 +25,6 @@ class UiObject():
 
     def onMouseClick(self):
         if self.selectable:
-            self.object.onMouseClick()
+            self.object.OnClick()
+           
     

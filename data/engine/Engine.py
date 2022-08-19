@@ -2,6 +2,9 @@
 import numpy
 import pygame
 
+from data.engine.PhysicsEngine.PhysicsEngine import PhysicsEngine
+from data.engine.collision.CollisionEngine import CollisionEngine
+
 from ..console.Console import Console
 
 from ..bodies.BodyManager import BodyManager
@@ -39,6 +42,9 @@ class Engine():
         
         self.UIManager = UiManager(self.console, self.SceneManager, self.BodyManager)
 
+        self.PhysicsEngine = PhysicsEngine()
+        self.CollisionEngine = CollisionEngine()
+
         self.UIManager.makeNewUIObject("EngineSurface" , self.engineSurface, ((0, 0), (self.engineSurface.get_width(), self.engineSurface.get_height())), 1, False)
         self.UIManager.makeNewUIObject("HierarchySurface", self.hierarchySurface, ((self.engineSurface.get_width(), 0), (self.globalSurface.get_width(), self.engineSurface.get_height())), 1, False)
         self.UIManager.makeNewUIObject("ConsoleSurface" ,self.consoleSurface, ((0, self.engineSurface.get_height()), (self.globalSurface.get_width(), self.globalSurface.get_height())), 1, False)
@@ -46,7 +52,7 @@ class Engine():
 
         self.SceneManager.UIManager = self.UIManager
         self.BodyManager.UIManager = self.UIManager
-
+        self.BodyManager.CollisionEngine = self.CollisionEngine
         self.On_Init()
 
 

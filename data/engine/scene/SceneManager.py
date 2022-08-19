@@ -44,6 +44,8 @@ class SceneManager():
         self.hierarchyUI()
         for bodies in self.SceneBodies:
             bodies.body.makeBody()
+            if bodies.body.isColliding():
+                self.console.Log("Collider alert!!", bodies)
             id = bodies.body.getID()
             self.textManager.makeText(self.hierarchySurface, "- Body {id}".format(id = id), 10, 5+(12*(id)))
 
