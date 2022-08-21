@@ -16,7 +16,8 @@ class ColliderBody:
             return False
         
         if self.endCoords[1] > colliderStartCoords[1] or colliderEndCoords[1] > self.startCoords[1]:
+            print("self coords: {selfCoords}, otherCoords: {otherCoords}".format(selfCoords = (self.startCoords, self.endCoords), otherCoords = (colliderStartCoords, colliderEndCoords)))
             print("cunt2")
             return False
-
+        print("cunt3")
         return True

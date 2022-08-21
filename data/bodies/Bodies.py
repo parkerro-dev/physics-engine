@@ -1,4 +1,5 @@
-from turtle import position
+
+from cmath import rect
 import pygame
 
 import numpy
@@ -15,9 +16,10 @@ class RigidSurface():
         self.coordSys = coordSys
 
     def rectInput(self):
-        rectWidth = (self.endCoord[0] - self.startCoord[0])*self.blockSize
-        rectHeight = (self.endCoord[1] - self.startCoord[1] )*self.blockSize
-
+        rectWidth = numpy.abs(self.endCoord[0] - self.startCoord[0])*self.blockSize
+        rectHeight = numpy.abs(self.endCoord[1] - self.startCoord[1] )*self.blockSize
+        rectHeightOffset = rectHeight/self.blockSize
+        print(rectHeight, rectWidth)
         rectValues = (self.coordSys.GetPos(self.startCoord[0], self.startCoord[1]), (rectWidth, rectHeight))
         return rectValues
 
@@ -32,7 +34,7 @@ class RigidSurface():
     
     def makeCollider(self):
 
-        self.colliderBody = self.CollisionEngine.newColliderBody((self.startCoord[0]-0.01,self.startCoord[1]-0.01), (self.endCoord[0]+0.01,self.endCoord[1]+0.01))
+        self.colliderBody = self.CollisionEngine.newColliderBody((self.startCoord[0]-0.01,self.startCoord[1]-0.01), (self.endCoord[0]+0.01, self.endCoord[1]+0.01))
 
     def isColliding(self):
         print(self.CollisionEngine.checkCollision(self.colliderBody))

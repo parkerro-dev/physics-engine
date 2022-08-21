@@ -44,6 +44,7 @@ class SceneManager():
         self.hierarchyUI()
         for bodies in self.SceneBodies:
             bodies.body.makeBody()
+            print(bodies.body)
             if bodies.body.isColliding():
                 self.console.Log("Collider alert!!", bodies)
             id = bodies.body.getID()
