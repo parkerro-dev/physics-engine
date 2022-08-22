@@ -4,6 +4,7 @@ import pygame
 
 from data.engine.PhysicsEngine.PhysicsEngine import PhysicsEngine
 from data.engine.collision.CollisionEngine import CollisionEngine
+from data.ui.sidePanel.SidePanel import SidePanel
 
 from ..console.Console import Console
 
@@ -20,10 +21,10 @@ from .coordinate.CoordinateSystem import CoordSys
 from ..ui.UiManager import UiManager
 
 class Engine():
-    def __init__(self, globalSurface, engineSurface, hierarchySurface, consoleSurface, width, height, blockSize):
+    def __init__(self, globalSurface, engineSurface, sidePanelSurface, consoleSurface, width, height, blockSize):
         self.globalSurface = globalSurface
         self.engineSurface = engineSurface
-        self.hierarchySurface = hierarchySurface
+        self.sidePanelSurface = sidePanelSurface
         self.consoleSurface = consoleSurface
         
         self.console = Console(self.consoleSurface)
@@ -36,17 +37,18 @@ class Engine():
         
         self.TextEngine = TextEngine(self.coordSys, self.engineSurface, self.width, self.height)
         
-        self.SceneManager = SceneManager(self.hierarchySurface, self.console, self.engineSurface)
+        self.SceneManager = SceneManager(self.sidePanelSurface, self.console, self.engineSurface)
         self.BodyManager = BodyManager(self.engineSurface, self.SceneManager, self.blockSize,  self.coordSys)
         self.EventManager = EventManager(self.console, self.coordSys, self.BodyManager, self.engineSurface)
         
         self.UIManager = UiManager(self.console, self.SceneManager, self.BodyManager)
+        self.SidePanel = SidePanel(self.sidePanelSurface, self.engineSurface, self.UIManager, self.SceneManager)
 
         self.PhysicsEngine = PhysicsEngine(self.coordSys, self.console, self.BodyManager, self.SceneManager)
         self.CollisionEngine = CollisionEngine()
 
         self.UIManager.makeNewUIObject("EngineSurface" , self.engineSurface, ((0, 0), (self.engineSurface.get_width(), self.engineSurface.get_height())), 1, False)
-        self.UIManager.makeNewUIObject("HierarchySurface", self.hierarchySurface, ((self.engineSurface.get_width(), 0), (self.globalSurface.get_width(), self.engineSurface.get_height())), 1, False)
+        self.UIManager.makeNewUIObject("sidePanelSurface", self.sidePanelSurface, ((self.engineSurface.get_width(), 0), (self.globalSurface.get_width(), self.engineSurface.get_height())), 1, False)
         self.UIManager.makeNewUIObject("ConsoleSurface" ,self.consoleSurface, ((0, self.engineSurface.get_height()), (self.globalSurface.get_width(), self.globalSurface.get_height())), 1, False)
         print(self.UIManager.UiObjects)
 
@@ -71,8 +73,8 @@ class Engine():
         #Engine Surface
         self.globalSurface.blit(self.engineSurface, (0, 0))
         self.engineSurface.fill((0,0,0))
-        #Scene Manager / Hierarchy Surface
-        self.globalSurface.blit(self.hierarchySurface, (self.engineSurface.get_width(), 0))
+        #Scene Manager / sidePanel Surface
+        self.globalSurface.blit(self.sidePanelSurface, (self.engineSurface.get_width(), 0))
 
         #Console Surface
         self.globalSurface.blit(self.consoleSurface, (0, self.engineSurface.get_height()))
@@ -89,6 +91,9 @@ class Engine():
 
         #text
         self.TextEngine.TextLoop()
+
+        #side panel
+        self.SidePanel.OnLoop()
 
         #physics
         self.PhysicsEngine.OnPhysicsLoop()

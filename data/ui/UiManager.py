@@ -43,6 +43,9 @@ class UiManager():
 
                     elif uiObjects.name == "playButton":
                         uiObjects.onMouseClick() 
+                    elif uiObjects.name == "HierarchyButton" or uiObjects.name == "PropertiesButton":
+                        print("click click")
+                        uiObjects.onMouseClick()
             
     
     def OnLoop(self):
