@@ -42,7 +42,7 @@ class Engine():
         
         self.UIManager = UiManager(self.console, self.SceneManager, self.BodyManager)
 
-        self.PhysicsEngine = PhysicsEngine()
+        self.PhysicsEngine = PhysicsEngine(self.coordSys, self.console, self.BodyManager, self.SceneManager)
         self.CollisionEngine = CollisionEngine()
 
         self.UIManager.makeNewUIObject("EngineSurface" , self.engineSurface, ((0, 0), (self.engineSurface.get_width(), self.engineSurface.get_height())), 1, False)
@@ -53,6 +53,7 @@ class Engine():
         self.SceneManager.UIManager = self.UIManager
         self.BodyManager.UIManager = self.UIManager
         self.BodyManager.CollisionEngine = self.CollisionEngine
+        self.SceneManager.PhysicsEngine = self.PhysicsEngine
         self.On_Init()
 
 
@@ -88,6 +89,9 @@ class Engine():
 
         #text
         self.TextEngine.TextLoop()
+
+        #physics
+        self.PhysicsEngine.OnPhysicsLoop()
 
         
         

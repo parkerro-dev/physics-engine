@@ -30,7 +30,7 @@ class Console():
         #blank console Canvas
         self.surface.fill((0,0,0))
         # Outline Console
-        pygame.draw.rect(self.surface, (200,200,200), (3, 0, self.surface.get_width()-5, self.surface.get_height()-5), 2)
+        pygame.draw.rect(self.surface, (200,200,200), (3, 0, self.surface.get_width()-5, self.surface.get_height()-5), 1)
         # console UI
         self.textManager.makeText(self.surface, "Console Log:", 10, 10)
 

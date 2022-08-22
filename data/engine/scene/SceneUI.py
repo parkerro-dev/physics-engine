@@ -4,10 +4,11 @@ from data.engine.scene.SceneUIComponents.EngineMenu import EngineMenu
 from data.engine.scene.SceneUIComponents.PlayButton import Button
 
 class SceneUi():
-    def __init__(self, engineSurface, UIManager ,console):
+    def __init__(self, engineSurface, UIManager ,console, PhysicsEngine):
         self.engineSurface = engineSurface
         self.console = console
         self.UIManager = UIManager
+        self.PhysicsEngine = PhysicsEngine
         
         self.On_Init()
         
@@ -19,7 +20,7 @@ class SceneUi():
     def OnClick(self, objectClick):
         if objectClick == self.PlayButton:
             self.console.Log("you pressed play", self)
-
+            self.PhysicsEngine.OnPlay()
    
     def SceneUILoop(self):
         self.EngineMenu.menuLoop()

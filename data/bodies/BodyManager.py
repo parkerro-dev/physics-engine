@@ -22,7 +22,7 @@ class BodyManager():
         self.sceneManager.addSceneBody(rigidSurface)
 
     def makeParticle(self, position):
-        particle = Particle(self.engineSurface, 4, 1, (255,0, 0), position, 0.2, self.coordSys, self.CollisionEngine)
+        particle = Particle(self.engineSurface, 10, 1, (255,0, 0), position, 0.2, self.coordSys, self.CollisionEngine)
         particle.makeCollider()
         self.ParticleCounter += 1
         self.UIManager.makeNewUIObject("Particle{counter}".format(counter = self.ParticleCounter), particle, particle.locationValues(), 3, True)

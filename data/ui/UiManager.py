@@ -35,7 +35,7 @@ class UiManager():
                 for uiObjects in self.hoverOverObjects:
                     if self.SceneManager.SceneUI.EngineMenu.menuActive:
                         if uiObjects.name == "makeSurfaceOption":
-                            self.bodyManager.makeRigidSurface((0, 0), (5, -1))
+                            self.bodyManager.makeRigidSurface((-10, 0), (10, -1))
                             self.SceneManager.SceneUI.EngineMenu.closeMenu()
                         if uiObjects.name == "makeParticleOption":
                             self.bodyManager.makeParticle((pygame.mouse.get_pos()))
