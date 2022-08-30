@@ -26,4 +26,5 @@ class BodyManager():
         particle.makeCollider()
         self.ParticleCounter += 1
         self.UIManager.makeNewUIObject("Particle{counter}".format(counter = self.ParticleCounter), particle, particle.locationValues(), 3, True)
+        particle.name = "Particle{counter}".format(counter = self.ParticleCounter)
         self.sceneManager.addSceneBody(particle)

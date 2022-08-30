@@ -4,18 +4,19 @@ from data.engine.scene.SceneUIComponents.EngineMenu import EngineMenu
 from data.engine.scene.SceneUIComponents.Button import Button
 
 class SceneUi():
-    def __init__(self, engineSurface, UIManager ,console, PhysicsEngine):
+    def __init__(self, engineSurface, UIManager ,console, PhysicsEngine, Colors):
         self.engineSurface = engineSurface
         self.console = console
         self.UIManager = UIManager
         self.PhysicsEngine = PhysicsEngine
+        self.Colors = Colors
         
         self.On_Init()
         
    
     def On_Init(self):
         self.EngineMenu = EngineMenu(self.engineSurface, self.console, self.UIManager)
-        self.PlayButton = Button("play", (5, 5), self.engineSurface, ((25, self.engineSurface.get_height()-25), (60, self.engineSurface.get_height()-5)), ((25, self.engineSurface.get_height()-25), (60, self.engineSurface.get_height()-5)), self.UIManager, self)
+        self.PlayButton = Button("play", (5, 5), self.engineSurface, ((25, self.engineSurface.get_height()-25), (60, self.engineSurface.get_height()-5)), ((25, self.engineSurface.get_height()-25), (60, self.engineSurface.get_height()-5)), self.UIManager, self, self.Colors)
         
         
     def OnClick(self, objectClick):

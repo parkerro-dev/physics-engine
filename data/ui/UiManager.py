@@ -11,8 +11,8 @@ class UiManager():
         self.bodyManager = bodyManager
         self.hoverOverObjects = []
 
-    def makeNewUIObject(self,name ,object, location, layer, selectable = True):
-        newUiObject = UiObject(name ,object, location, layer, selectable)  
+    def makeNewUIObject(self, name, object, location, layer, selectable = True):
+        newUiObject = UiObject(name, object, location, layer, selectable)  
         self.UiObjects.append(newUiObject)
         return newUiObject
 
@@ -40,12 +40,8 @@ class UiManager():
                         if uiObjects.name == "makeParticleOption":
                             self.bodyManager.makeParticle((pygame.mouse.get_pos()))
                             self.SceneManager.SceneUI.EngineMenu.closeMenu()
-
-                    elif uiObjects.name == "playButton":
-                        uiObjects.onMouseClick() 
-                    elif uiObjects.name == "HierarchyButton" or uiObjects.name == "PropertiesButton":
-                        print("click click")
-                        uiObjects.onMouseClick()
+                    
+                    uiObjects.onMouseClick()
             
     
     def OnLoop(self):

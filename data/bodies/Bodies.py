@@ -1,12 +1,11 @@
 
-from cmath import rect
-from this import d
 import pygame
 
 import numpy
 
 class RigidSurface():
     def __init__(self, surface, startCoord, endCoord, blockSize, coordSys, CollisionEngine=None, collider = True):
+        self.name = None
         self.id = None
         self.physics = False
         self.surface = surface
@@ -16,7 +15,12 @@ class RigidSurface():
         self.collider = collider
         self.blockSize = blockSize
         self.coordSys = coordSys
+        self.selected = False
 
+    
+    def OnClick(self):
+        self.selected = True
+    
     def rectInput(self):
         rectWidth = numpy.abs(self.endCoord[0] - self.startCoord[0])*self.blockSize
         rectHeight = numpy.abs(self.endCoord[1] - self.startCoord[1] )*self.blockSize
@@ -49,6 +53,8 @@ class RigidSurface():
     def getID(self):
         return self.id
 
+    
+
 class Particle:
     def __init__(self, surface, size, mass, color, position, friction, coordSys, CollisionEngine):
         self.surface = surface
@@ -67,6 +73,10 @@ class Particle:
         self.endCoord = self.coordSys.GetCoord(self.position[0]+self.size, self.position[1]+self.size)
         self.height = [self.endCoord[1]]
         self.currentHeightCount = 1
+        self.selected = False
+
+    def OnClick(self):
+        self.selected = True
 
     def locationValues(self):
         location = (self.position, (self.position[0]+self.size, self.position[1]+self.size))

@@ -64,7 +64,7 @@ class PhysicsEngine():
                 freefall = True
                 h=0
             hmax = 0.5*vmax*vmax/g
-            body.body.height.append(-h)
+            body.body.height.append(h)
             h_list.append(h)
             t_list.append(t)
         plt.plot(t_list, h_list)
@@ -77,7 +77,21 @@ class PhysicsEngine():
 
     def OnPhysicsLoop(self):
         if self._isPlaying == False:
-            return
+            pass
+
+    def newCalcMotion(self):
+        while self.isEquilibrium == False:
+            for body in self.physicsBodies:
+                # determine the type of motion occuring (i.e free motion or collision or peduum or spring)
+                freeFall = True
+                if body.isColliding:
+                    freeFall = False
+
+                if freeFall:
+                    body.velocityY = 0
+                # determine the forces acting against the body
+
+                # determine the forces acting with the body
         
 
         

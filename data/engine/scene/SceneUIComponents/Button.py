@@ -3,7 +3,7 @@ import pygame
 from data.ui.uiMakers.TextMaker import TextMaker
 
 class Button:
-    def __init__(self, text, textLocation, surface, locationOnScreen, location,UIManager, parent, inverted = False):
+    def __init__(self, text, textLocation, surface, locationOnScreen, location,UIManager, parent, Colors, inverted = False):
         self.surface = surface
         self.location = locationOnScreen
         self.blitLocation = location
@@ -12,11 +12,12 @@ class Button:
         self.text = text
         self.textLocation = textLocation
         self.parent = parent
+        self.Colors = Colors
         self.inverted = inverted
-        self.backgroundColor = (0, 0, 0)
-        self.invertedBackgroundColor = (255, 255, 255)
-        self.textColor = (255, 255, 255)
-        self.invertedTextColor = (0, 0, 0)
+        self.backgroundColor = self.Colors.darkBg
+        self.invertedBackgroundColor = self.Colors.secondary
+        self.textColor = self.Colors.primary
+        self.invertedTextColor = self.Colors.antiPrimary
         self.makeButton()
 
     def makeButton(self):

@@ -4,16 +4,17 @@ from data.ui.uiMakers.TextMaker import TextMaker
 from ...engine.scene.SceneUIComponents.Button import Button
 
 class SidePanel:
-    def __init__(self, sidePanelSurface, engineSurface, UIManager, sceneManager):
+    def __init__(self, sidePanelSurface, engineSurface, UIManager, sceneManager, Colors):
         self.sidePanelSurface = sidePanelSurface
         self.engineSurface = engineSurface
         self.sceneManager = sceneManager
         self.UIManager = UIManager
+        self.Colors = Colors
         self.HierarchyUI = HierarchyUI(self.sidePanelSurface, self.sceneManager)
-        self.PropertiesUI = PropertiesUI(self.sidePanelSurface)
+        self.PropertiesUI = PropertiesUI(self.sidePanelSurface, self.sceneManager)
         self.OutlineColor = (155, 155, 155)
-        self.HierarchyButton = Button("Hierarchy", (5, 5), self.sidePanelSurface, ((self.engineSurface.get_width(), 0),(self.engineSurface.get_width()+75, 20)), ((0, 0), (75, 20)),self.UIManager, self.HierarchyUI, True)
-        self.PropertiesButton = Button("Properties", (5, 5), self.sidePanelSurface, ((self.engineSurface.get_width()+80, 0), (self.engineSurface.get_width()+155, 20)), ((80, 0), (155, 20)), self.UIManager, self.PropertiesUI, False)
+        self.HierarchyButton = Button("Hierarchy", (5, 5), self.sidePanelSurface, ((self.engineSurface.get_width(), 0),(self.engineSurface.get_width()+75, 20)), ((0, 0), (75, 20)),self.UIManager, self.HierarchyUI, self.Colors,True)
+        self.PropertiesButton = Button("Properties", (5, 5), self.sidePanelSurface, ((self.engineSurface.get_width()+80, 0), (self.engineSurface.get_width()+155, 20)), ((80, 0), (155, 20)), self.UIManager, self.PropertiesUI, self.Colors,False)
         self.On_Init()
    
     def On_Init(self):
@@ -26,8 +27,11 @@ class SidePanel:
         self.PropertiesButton.buttonLoop()
 
     def OnLoop(self):
+        self.sidePanelSurface.fill(self.Colors.bg)
         self.SidePanelLayout()
+        
         if self.HierarchyUI.active:
+           
             self.HierarchyButton.inverted = True
             self.PropertiesButton.inverted = False
             self.HierarchyUI.OnLoop()
@@ -56,12 +60,13 @@ class HierarchyUI:
     def OnLoop(self):
         for body in self.sceneManager.SceneBodies:
             id = body.body.getID()
-            self.textManager.makeText(self.sidePanelSurface, "- Body {id}".format(id = id), 10, 5+(12*(id)))
+            self.textManager.makeText(self.sidePanelSurface, "- Body {id}".format(id = id), 10, 20+(12*(id)))
 
 
 
 class PropertiesUI:
-    def __init__(self, sidePanelSurface):
+    def __init__(self, sidePanelSurface, sceneManager):
+        self.sceneManager = sceneManager
         self.sidePanelSurface = sidePanelSurface
         self.active = False
         self.HierarchyUI = None
@@ -74,5 +79,26 @@ class PropertiesUI:
             self.active = True
             self.HierarchyUI.active = False
         
+    def PropertiesDisplay(self):
+        self.Body = self.sceneManager.selectedSceneBody
+        if self.Body == None:
+            self.NoSelectedBody()
+            return
+        
+        self.SelectedBody(self.Body.body)
+    
+    def NoSelectedBody(self):
+        self.textManager.makeText(self.sidePanelSurface, "Please Select Something!", 25, 100)
+    
+    def SelectedBody(self, body):
+        # Name
+        self.textManager.makeText(self.sidePanelSurface, "name:", 10, 32)
+        self.textManager.makeText(self.sidePanelSurface, body.name, 15, 50)
+
+        #Location
+        self.textManager.makeText(self.sidePanelSurface, "location:", 10, 68)
+        self.textManager.makeText(self.sidePanelSurface, str(body.startCoord), 15, 86)
+
     def OnLoop(self):
-        self.textManager.makeText(self.sidePanelSurface, "Working in Progress", 20, 100)
+        self.PropertiesDisplay()
+        

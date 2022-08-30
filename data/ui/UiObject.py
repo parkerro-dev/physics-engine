@@ -1,7 +1,7 @@
 import pygame
 
 class UiObject():
-    def __init__(self, name ,object, location, layer, selectable=True):
+    def __init__(self, name ,object, location, layer, selectable=False):
         self.name = name
         self.object = object
         self.location = location # location format is ((x, y), (x1, y1)
@@ -25,6 +25,9 @@ class UiObject():
 
     def onMouseClick(self):
         if self.selectable:
-            self.object.OnClick()
+            try:
+                self.object.OnClick()
+            except:
+                print("UIObject {name} does not have an onclick function".format(name = self.name))
            
     

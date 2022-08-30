@@ -21,14 +21,14 @@ from .coordinate.CoordinateSystem import CoordSys
 from ..ui.UiManager import UiManager
 
 class Engine():
-    def __init__(self, globalSurface, engineSurface, sidePanelSurface, consoleSurface, width, height, blockSize):
+    def __init__(self, globalSurface, engineSurface, sidePanelSurface, consoleSurface, width, height, blockSize, Colors):
         self.globalSurface = globalSurface
         self.engineSurface = engineSurface
         self.sidePanelSurface = sidePanelSurface
         self.consoleSurface = consoleSurface
-        
-        self.console = Console(self.consoleSurface)
-        self.coordSys = CoordSys(self.engineSurface, width, height, blockSize)
+        self.Colors = Colors
+        self.console = Console(self.consoleSurface, self.Colors)
+        self.coordSys = CoordSys(self.engineSurface, width, height, blockSize, self.Colors)
        
         self.width = width
         self.height = height
@@ -37,12 +37,12 @@ class Engine():
         
         self.TextEngine = TextEngine(self.coordSys, self.engineSurface, self.width, self.height)
         
-        self.SceneManager = SceneManager(self.sidePanelSurface, self.console, self.engineSurface)
+        self.SceneManager = SceneManager(self.sidePanelSurface, self.console, self.engineSurface, self.Colors)
         self.BodyManager = BodyManager(self.engineSurface, self.SceneManager, self.blockSize,  self.coordSys)
         self.EventManager = EventManager(self.console, self.coordSys, self.BodyManager, self.engineSurface)
         
         self.UIManager = UiManager(self.console, self.SceneManager, self.BodyManager)
-        self.SidePanel = SidePanel(self.sidePanelSurface, self.engineSurface, self.UIManager, self.SceneManager)
+        self.SidePanel = SidePanel(self.sidePanelSurface, self.engineSurface, self.UIManager, self.SceneManager, self.Colors)
 
         self.PhysicsEngine = PhysicsEngine(self.coordSys, self.console, self.BodyManager, self.SceneManager)
         self.CollisionEngine = CollisionEngine()
@@ -72,7 +72,7 @@ class Engine():
         #blitzing and intialising surface UI objects
         #Engine Surface
         self.globalSurface.blit(self.engineSurface, (0, 0))
-        self.engineSurface.fill((0,0,0))
+        self.engineSurface.fill((self.Colors.antiPrimary))
         #Scene Manager / sidePanel Surface
         self.globalSurface.blit(self.sidePanelSurface, (self.engineSurface.get_width(), 0))
 

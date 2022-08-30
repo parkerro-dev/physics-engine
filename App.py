@@ -3,6 +3,7 @@ from pygame.locals import *
 from data.engine.Engine import Engine
 
 from data.engine.collision.CollisionEngine import CollisionEngine
+from data.ui.Colors import Colors
  
 class App:
     def __init__(self):
@@ -30,14 +31,15 @@ class App:
         self.engineSurface = pygame.Surface(self.engineSurfaceSize, )
         self.HierarchySurface = pygame.Surface((self.width-self.engineWidth, self.engineHeight))
         self.consoleSurface = pygame.Surface((self.width, self.height-self.engineHeight))
-
+        self.Colors = Colors(False)
         self.Engine = Engine(self.globalSurface, 
                             self.engineSurface, 
                             self.HierarchySurface, 
                             self.consoleSurface, 
                             self.engineWidth, 
                             self.engineHeight, 
-                            self.BlockSize)
+                            self.BlockSize,
+                            self.Colors)
         
  
     def on_event(self, event):
